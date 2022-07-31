@@ -1,6 +1,6 @@
 # gin-connect-demo
 
-An example service built with Connect and Gin.
+An example service built with [Connect](https://connect.build) and Gin.
 
 ## Install tools
 
