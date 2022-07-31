@@ -29,6 +29,7 @@ func (s *GiteaServer) Gitea(
 
 func giteaHandler(h http.Handler) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		log.Println("Got connection:", c.Request.Proto)
 		h.ServeHTTP(c.Writer, c.Request)
 	}
 }
@@ -37,8 +38,9 @@ func main() {
 	greeter := &GiteaServer{}
 	path, handler := v1connect.NewGiteaServiceHandler(greeter)
 
-	router := gin.Default()
-	router.POST(path+":name", giteaHandler(handler))
+	r := gin.Default()
+	r.UseH2C = true
+	r.POST(path+":name", giteaHandler(handler))
 
-	router.Run(":8080")
+	r.Run(":8080")
 }
