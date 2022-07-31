@@ -1,5 +1,7 @@
 # gin-connect-demo
 
+[![Code Generator](https://github.com/go-training/gin-connect-demo/actions/workflows/codegen.yaml/badge.svg)](https://github.com/go-training/gin-connect-demo/actions/workflows/codegen.yaml)
+
 An example service built with [Connect](https://connect.build) and Gin.
 
 ## Install tools
