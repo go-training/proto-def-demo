@@ -25,6 +25,10 @@ install:
 	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	$(GO) install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
 
+.PHONY: upgrade
+upgrade: ## Upgrade dependencies
+	$(GO) get -u -t ./... && go mod tidy -v
+
 .PHONY: generator
 generator:
 	buf lint && buf generate
