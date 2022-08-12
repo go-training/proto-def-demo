@@ -6,13 +6,14 @@ import (
 	"log"
 	"net/http"
 
+	v1 "github.com/go-training/proto-connect-demo/gen/proto/v1"
+	"github.com/go-training/proto-connect-demo/gen/proto/v1/v1connect"
+
 	"github.com/bufbuild/connect-go"
 	grpchealth "github.com/bufbuild/connect-grpchealth-go"
 	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	v1 "github.com/go-training/gin-connect-demo/gen/proto/v1"
-	"github.com/go-training/gin-connect-demo/gen/proto/v1/v1connect"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 )

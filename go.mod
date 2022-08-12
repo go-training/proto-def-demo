@@ -1,4 +1,4 @@
-module github.com/go-training/gin-connect-demo
+module github.com/go-training/proto-connect-demo
 
 go 1.18
 
