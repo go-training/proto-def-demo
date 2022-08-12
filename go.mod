@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/bufbuild/connect-go v0.2.0
 	github.com/gin-gonic/gin v1.8.1
+	github.com/go-chi/chi/v5 v5.0.7
 	golang.org/x/net v0.0.0-20220728211354-c7608f3a8462
 	google.golang.org/protobuf v1.28.1
 )
