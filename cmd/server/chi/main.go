@@ -7,6 +7,8 @@ import (
 	"net/http"
 
 	"github.com/bufbuild/connect-go"
+	grpchealth "github.com/bufbuild/connect-grpchealth-go"
+	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	v1 "github.com/go-training/gin-connect-demo/gen/proto/v1"
@@ -37,8 +39,31 @@ func giteaHandler(h http.Handler) http.HandlerFunc {
 }
 
 func main() {
+	compress1KB := connect.WithCompressMinBytes(1024)
+
 	greeter := &GiteaServer{}
-	path, handler := v1connect.NewGiteaServiceHandler(greeter)
+	path, handler := v1connect.NewGiteaServiceHandler(
+		greeter,
+		compress1KB,
+	)
+
+	// grpcV1
+	grpcPath, gHandler := grpcreflect.NewHandlerV1(
+		grpcreflect.NewStaticReflector(v1connect.GiteaServiceName),
+		compress1KB,
+	)
+
+	// grpcV1Alpha
+	grpcAlphaPath, gAlphaHandler := grpcreflect.NewHandlerV1Alpha(
+		grpcreflect.NewStaticReflector(v1connect.GiteaServiceName),
+		compress1KB,
+	)
+
+	// grpcHealthCheck
+	grpcHealthPath, gHealthHandler := grpchealth.NewHandler(
+		grpchealth.NewStaticChecker(v1connect.GiteaServiceName),
+		compress1KB,
+	)
 
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
@@ -46,6 +71,9 @@ func main() {
 		w.Write([]byte("welcome"))
 	})
 	r.Post(path+"{name}", giteaHandler(handler))
+	r.Post(grpcPath+"{name}", giteaHandler(gHandler))
+	r.Post(grpcAlphaPath+"{name}", giteaHandler(gAlphaHandler))
+	r.Post(grpcHealthPath+"{name}", giteaHandler(gHealthHandler))
 	http.ListenAndServe(
 		":8080",
 		h2c.NewHandler(r, &http2.Server{}),
