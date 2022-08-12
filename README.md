@@ -45,8 +45,18 @@ Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-
 
 ## Start client
 
+run client with [Go](https://go.dev)
+
 ```sh
 $ ./bin/client
 2022/08/12 10:05:00 Message: Hello, foobar!
 2022/08/12 10:05:00 Gitea-Version: v1
+```
+
+run client with curl command
+
+```sh
+curl --header "Content-Type: application/json" \
+    --data '{"name": "foobar"}' \
+    http://localhost:8080/proto.v1.GiteaService/Gitea
 ```
