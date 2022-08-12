@@ -60,3 +60,13 @@ curl --header "Content-Type: application/json" \
     --data '{"name": "foobar"}' \
     http://localhost:8080/proto.v1.GiteaService/Gitea
 ```
+
+run client with [grpcurl](https://github.com/fullstorydev/grpcurl) command
+
+```sh
+grpcurl \
+    -plaintext \
+    -d '{"name": "foobar"}' \
+    localhost:8080 \
+    proto.v1.GiteaService/Gitea
+```

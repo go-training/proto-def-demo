@@ -1,5 +1,9 @@
 github.com/bufbuild/connect-go v0.2.0 h1:WuMI/jLiJIhysHWvLWlxRozV67mGjCOUuDSl/lkDVic=
 github.com/bufbuild/connect-go v0.2.0/go.mod h1:4efZ2eXFENwd4p7tuLaL9m0qtTsCOzuBvrohvRGevDM=
+github.com/bufbuild/connect-grpchealth-go v0.1.0 h1:r3HMBCXkqocR7z1ET98kteRE5K4B84lP9XMCRQXIGmw=
+github.com/bufbuild/connect-grpchealth-go v0.1.0/go.mod h1:Vm0Mk9/DurVa0pThTknZTXTzzfNio6EDpU64SP4JONc=
+github.com/bufbuild/connect-grpcreflect-go v0.1.0 h1:HBXdqivMVMDaG+CjMogGwhDS8pAY/k5UQMX8TRPB+0A=
+github.com/bufbuild/connect-grpcreflect-go v0.1.0/go.mod h1:QJMUStjH/yZvhvaRI0Kn5JfQWAM19l/NbA0wxWkSfp0=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
