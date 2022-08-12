@@ -25,7 +25,8 @@ func (s *GiteaServer) Gitea(
 	ctx context.Context,
 	req *connect.Request[v1.GiteaRequest],
 ) (*connect.Response[v1.GiteaResponse], error) {
-	log.Println("Request headers: ", req.Header())
+	log.Println("Content-Type: ", req.Header().Get("Content-Type"))
+	log.Println("User-Agent: ", req.Header().Get("User-Agent"))
 	res := connect.NewResponse(&v1.GiteaResponse{
 		Giteaing: fmt.Sprintf("Hello, %s!", req.Msg.Name),
 	})
@@ -35,7 +36,7 @@ func (s *GiteaServer) Gitea(
 
 func giteaHandler(h http.Handler) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		log.Println("Got connection:", c.Request.Proto)
+		log.Println("protocol version:", c.Request.Proto)
 		h.ServeHTTP(c.Writer, c.Request)
 	}
 }

@@ -26,18 +26,29 @@ func main() {
 		},
 	}
 
-	client := v1connect.NewGiteaServiceClient(
+	connectClient := v1connect.NewGiteaServiceClient(
 		c,
 		"http://localhost:8080/",
 	)
-	req := connect.NewRequest(&v1.GiteaRequest{
-		Name: "foobar",
-	})
-	req.Header().Set("Gitea-Header", "hello from connect")
-	res, err := client.Gitea(context.Background(), req)
-	if err != nil {
-		log.Fatalln(err)
+
+	grpcClient := v1connect.NewGiteaServiceClient(
+		c,
+		"http://localhost:8080/",
+		connect.WithGRPC(),
+	)
+
+	clients := []v1connect.GiteaServiceClient{connectClient, grpcClient}
+
+	for _, client := range clients {
+		req := connect.NewRequest(&v1.GiteaRequest{
+			Name: "foobar",
+		})
+		req.Header().Set("Gitea-Header", "hello from connect")
+		res, err := client.Gitea(context.Background(), req)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		log.Println("Message:", res.Msg.Giteaing)
+		log.Println("Gitea-Version:", res.Header().Get("Gitea-Version"))
 	}
-	log.Println("Message:", res.Msg.Giteaing)
-	log.Println("Gitea-Version:", res.Header().Get("Gitea-Version"))
 }
