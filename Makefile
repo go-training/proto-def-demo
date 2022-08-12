@@ -4,8 +4,11 @@ GO ?= go
 build: generator server client
 
 .PHONY: server
-server:
-	$(GO) build -o bin/$@ cmd/$@/main.go
+server: gin
+
+.PHONY: gin
+gin:
+	$(GO) build -o bin/$@-server cmd/server/$@/main.go
 
 .PHONY: client
 client:
