@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	v1 "github.com/go-training/proto-connect-demo/gen/proto/v1"
 	"github.com/go-training/proto-connect-demo/gen/proto/v1/v1connect"
@@ -75,8 +77,20 @@ func main() {
 	r.Post(grpcPath+"{name}", giteaHandler(gHandler))
 	r.Post(grpcAlphaPath+"{name}", giteaHandler(gAlphaHandler))
 	r.Post(grpcHealthPath+"{name}", giteaHandler(gHealthHandler))
-	http.ListenAndServe(
-		":8080",
-		h2c.NewHandler(r, &http2.Server{}),
-	)
+
+	srv := &http.Server{
+		Addr: ":8080",
+		Handler: h2c.NewHandler(
+			r,
+			&http2.Server{},
+		),
+		ReadHeaderTimeout: time.Second,
+		ReadTimeout:       5 * time.Minute,
+		WriteTimeout:      5 * time.Minute,
+		MaxHeaderBytes:    8 * 1024, // 8KiB
+	}
+
+	if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		log.Fatalf("HTTP listen and serve: %v", err)
+	}
 }
