@@ -46,7 +46,7 @@ func main() {
 	compress1KB := connect.WithCompressMinBytes(1024)
 
 	greeter := &GiteaServer{}
-	path, handler := v1connect.NewGiteaServiceHandler(
+	connectPath, connecthandler := v1connect.NewGiteaServiceHandler(
 		greeter,
 		compress1KB,
 	)
@@ -74,7 +74,7 @@ func main() {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("welcome"))
 	})
-	r.Post(path+"{name}", giteaHandler(handler))
+	r.Post(connectPath+"{name}", giteaHandler(connecthandler))
 	r.Post(grpcPath+"{name}", giteaHandler(gHandler))
 	r.Post(grpcAlphaPath+"{name}", giteaHandler(gAlphaHandler))
 	r.Post(grpcHealthPath+"{name}", giteaHandler(gHealthHandler))
