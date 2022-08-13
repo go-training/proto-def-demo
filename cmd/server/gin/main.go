@@ -34,7 +34,7 @@ func (s *GiteaServer) Gitea(
 	return res, nil
 }
 
-func giteaHandler(h http.Handler) gin.HandlerFunc {
+func grpcHandler(h http.Handler) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		log.Println("protocol version:", c.Request.Proto)
 		h.ServeHTTP(c.Writer, c.Request)
@@ -44,9 +44,9 @@ func giteaHandler(h http.Handler) gin.HandlerFunc {
 func main() {
 	compress1KB := connect.WithCompressMinBytes(1024)
 
-	greeter := &GiteaServer{}
+	giteaService := &GiteaServer{}
 	connectPath, connecthandler := v1connect.NewGiteaServiceHandler(
-		greeter,
+		giteaService,
 		compress1KB,
 	)
 
@@ -69,10 +69,10 @@ func main() {
 	)
 
 	r := gin.Default()
-	r.POST(connectPath+":name", giteaHandler(connecthandler))
-	r.POST(grpcPath+":name", giteaHandler(gHandler))
-	r.POST(grpcAlphaPath+":name", giteaHandler(gAlphaHandler))
-	r.POST(grpcHealthPath+":name", giteaHandler(gHealthHandler))
+	r.POST(connectPath+":name", grpcHandler(connecthandler))
+	r.POST(grpcPath+":name", grpcHandler(gHandler))
+	r.POST(grpcAlphaPath+":name", grpcHandler(gAlphaHandler))
+	r.POST(grpcHealthPath+":name", grpcHandler(gHealthHandler))
 
 	srv := &http.Server{
 		Addr: ":8080",
