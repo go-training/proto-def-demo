@@ -26,20 +26,20 @@ func main() {
 		},
 	}
 
-	connectClient := v1connect.NewGiteaServiceClient(
+	connectGiteaClient := v1connect.NewGiteaServiceClient(
 		c,
 		"http://localhost:8080/",
 	)
 
-	grpcClient := v1connect.NewGiteaServiceClient(
+	grpcGiteaClient := v1connect.NewGiteaServiceClient(
 		c,
 		"http://localhost:8080/",
 		connect.WithGRPC(),
 	)
 
-	clients := []v1connect.GiteaServiceClient{connectClient, grpcClient}
+	giteaClients := []v1connect.GiteaServiceClient{connectGiteaClient, grpcGiteaClient}
 
-	for _, client := range clients {
+	for _, client := range giteaClients {
 		req := connect.NewRequest(&v1.GiteaRequest{
 			Name: "foobar",
 		})
@@ -49,6 +49,32 @@ func main() {
 			log.Fatalln(err)
 		}
 		log.Println("Message:", res.Msg.Giteaing)
+		log.Println("Gitea-Version:", res.Header().Get("Gitea-Version"))
+	}
+
+	connectPingClient := v1connect.NewPingServiceClient(
+		c,
+		"http://localhost:8080/",
+	)
+
+	grpcPingClient := v1connect.NewPingServiceClient(
+		c,
+		"http://localhost:8080/",
+		connect.WithGRPC(),
+	)
+
+	pingClients := []v1connect.PingServiceClient{connectPingClient, grpcPingClient}
+
+	for _, client := range pingClients {
+		req := connect.NewRequest(&v1.PingRequest{
+			Data: "Ping",
+		})
+		req.Header().Set("Gitea-Header", "hello from connect")
+		res, err := client.Ping(context.Background(), req)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		log.Println("Message:", res.Msg.Data)
 		log.Println("Gitea-Version:", res.Header().Get("Gitea-Version"))
 	}
 }

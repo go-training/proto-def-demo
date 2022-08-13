@@ -8,11 +8,11 @@ server: gin chi
 
 .PHONY: chi
 chi:
-	$(GO) build -o bin/$@-server cmd/server/$@/main.go
+	$(GO) build -o bin/$@-server cmd/server/$@/*.go
 
 .PHONY: gin
 gin:
-	$(GO) build -o bin/$@-server cmd/server/$@/main.go
+	$(GO) build -o bin/$@-server cmd/server/$@/*.go
 
 .PHONY: client
 client:
