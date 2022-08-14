@@ -1,6 +1,6 @@
-# gin-connect-demo
+# proto-connect-demo
 
-[![Code Generator](https://github.com/go-training/gin-connect-demo/actions/workflows/codegen.yaml/badge.svg)](https://github.com/go-training/gin-connect-demo/actions/workflows/codegen.yaml)
+[![Code Generator](https://github.com/go-training/proto-connect-demo/actions/workflows/codegen.yaml/badge.svg)](https://github.com/go-training/proto-connect-demo/actions/workflows/codegen.yaml)
 
 An example service built with [Connect](https://connect.build) and Gin.
 
@@ -8,6 +8,7 @@ An example service built with [Connect](https://connect.build) and Gin.
 
 ```sh
 make install
+make generator
 ```
 
 ## Build Server and Client
