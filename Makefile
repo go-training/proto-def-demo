@@ -1,4 +1,9 @@
 GO ?= go
+BUF_VERSION=v1.7.0
+GRPCURL_VERSION=v1.8.7
+PROTOC_GEN_GO=v1.28
+PROTOC_GEN_GO_GRPC=v1.2
+PROTOC_GEN_CONNECT_GO=v0.3.0
 
 .PHONY: build
 build: generator server client
@@ -20,10 +25,11 @@ client:
 
 .PHONY: install
 install:
-	$(GO) install github.com/bufbuild/buf/cmd/buf@latest
-	$(GO) install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
-	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-	$(GO) install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@latest
+	$(GO) install github.com/bufbuild/buf/cmd/buf@$(BUF_VERSION)
+	$(GO) install github.com/fullstorydev/grpcurl/cmd/grpcurl@$(GRPCURL_VERSION)
+	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@$(PROTOC_GEN_GO)
+	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc@$(PROTOC_GEN_GO_GRPC)
+	$(GO) install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@$(PROTOC_GEN_CONNECT_GO)
 
 .PHONY: upgrade
 upgrade: ## Upgrade dependencies
