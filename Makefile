@@ -36,8 +36,16 @@ upgrade: ## Upgrade dependencies
 	$(GO) get -u -t ./... && go mod tidy -v
 
 .PHONY: generator
-generator:
-	buf lint && buf generate
+generator: buf-lint buf-gen-go buf-gen-python
+
+buf-lint:
+	buf lint
+
+buf-gen-go:
+	buf generate --template buf.gen-go.yaml
+
+buf-gen-python:
+	buf generate --template buf.gen-python.yaml
 
 clean:
 	rm -rf gen

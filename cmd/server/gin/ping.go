@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gin-gonic/gin"
-	v1 "github.com/go-training/proto-connect-demo/gen/proto/v1"
-	"github.com/go-training/proto-connect-demo/gen/proto/v1/v1connect"
+	v1 "github.com/go-training/proto-connect-demo/gen/go/proto/v1"
+	"github.com/go-training/proto-connect-demo/gen/go/proto/v1/v1connect"
 
 	"github.com/bufbuild/connect-go"
 	grpchealth "github.com/bufbuild/connect-grpchealth-go"
 	grpcreflect "github.com/bufbuild/connect-grpcreflect-go"
+	"github.com/gin-gonic/gin"
 )
 
 type PingService struct{}

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	v1 "github.com/go-training/proto-connect-demo/gen/proto/v1"
-	"github.com/go-training/proto-connect-demo/gen/proto/v1/v1connect"
+	v1 "github.com/go-training/proto-connect-demo/gen/go/proto/v1"
+	"github.com/go-training/proto-connect-demo/gen/go/proto/v1/v1connect"
 
 	"github.com/bufbuild/connect-go"
 	grpchealth "github.com/bufbuild/connect-grpchealth-go"

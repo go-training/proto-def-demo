@@ -1,0 +1,6 @@
+version: v1
+plugins:
+  - remote: buf.build/protocolbuffers/plugins/python:v21.5.0-1
+    out: gen/python
+  - remote: buf.build/grpc/plugins/python:v1.48.0-1
+    out: gen/python

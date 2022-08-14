@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package proto.v1;
 
-option go_package = "github.com/go-training/proto-connect-demo/gen/proto/v1;v1";
+option go_package = "github.com/go-training/proto-connect-demo/gen/go/proto/v1;v1";
 
 service PingService {
   rpc Ping (PingRequest) returns (PingResponse);
