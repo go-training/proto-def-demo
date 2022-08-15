@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	v1 "github.com/go-training/proto-connect-demo/gen/go/proto/v1"
-	"github.com/go-training/proto-connect-demo/gen/go/proto/v1/v1connect"
+	"github.com/go-training/proto-connect-demo/gen/go/ping/v1"
+	"github.com/go-training/proto-connect-demo/gen/go/ping/v1/pingconnect"
 
 	"github.com/bufbuild/connect-go"
 	grpchealth "github.com/bufbuild/connect-grpchealth-go"
@@ -18,11 +18,11 @@ type PingService struct{}
 
 func (s *PingService) Ping(
 	ctx context.Context,
-	req *connect.Request[v1.PingRequest],
-) (*connect.Response[v1.PingResponse], error) {
+	req *connect.Request[ping.PingRequest],
+) (*connect.Response[ping.PingResponse], error) {
 	log.Println("Content-Type: ", req.Header().Get("Content-Type"))
 	log.Println("User-Agent: ", req.Header().Get("User-Agent"))
-	res := connect.NewResponse(&v1.PingResponse{
+	res := connect.NewResponse(&ping.PingResponse{
 		Data: fmt.Sprintf("Hello, %s!", req.Msg.Data),
 	})
 	res.Header().Set("Gitea-Version", "v1")
@@ -33,26 +33,26 @@ func pingServiceRoute(r *chi.Mux) {
 	compress1KB := connect.WithCompressMinBytes(1024)
 
 	pingService := &PingService{}
-	connectPath, connecthandler := v1connect.NewPingServiceHandler(
+	connectPath, connecthandler := pingconnect.NewPingServiceHandler(
 		pingService,
 		compress1KB,
 	)
 
 	// grpcV1
 	grpcPath, gHandler := grpcreflect.NewHandlerV1(
-		grpcreflect.NewStaticReflector(v1connect.PingServiceName),
+		grpcreflect.NewStaticReflector(pingconnect.PingServiceName),
 		compress1KB,
 	)
 
 	// grpcV1Alpha
 	grpcAlphaPath, gAlphaHandler := grpcreflect.NewHandlerV1Alpha(
-		grpcreflect.NewStaticReflector(v1connect.PingServiceName),
+		grpcreflect.NewStaticReflector(pingconnect.PingServiceName),
 		compress1KB,
 	)
 
 	// grpcHealthCheck
 	grpcHealthPath, gHealthHandler := grpchealth.NewHandler(
-		grpchealth.NewStaticChecker(v1connect.PingServiceName),
+		grpchealth.NewStaticChecker(pingconnect.PingServiceName),
 		compress1KB,
 	)
 

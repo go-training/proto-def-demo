@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package gitea.v1;
+
+option go_package = "github.com/go-training/proto-connect-demo/gen/go/gitea/v1;gitea";
+
+message GiteaRequest {
+  string name = 1;
+}
+
+message GiteaResponse {
+  string giteaing = 1;
+}

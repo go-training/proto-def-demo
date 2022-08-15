@@ -39,13 +39,13 @@ upgrade: ## Upgrade dependencies
 generator: buf-lint buf-gen-go buf-gen-python
 
 buf-lint:
-	buf lint
+	buf lint proto
 
 buf-gen-go:
-	buf generate --template buf.gen-go.yaml
+	buf generate --template buf.gen-go.yaml proto
 
 buf-gen-python:
-	buf generate --template buf.gen-python.yaml
+	buf generate --template buf.gen-python.yaml proto
 
 clean:
 	rm -rf gen
