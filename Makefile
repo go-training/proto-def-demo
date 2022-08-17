@@ -38,8 +38,14 @@ upgrade: ## Upgrade dependencies
 .PHONY: generator
 generator: buf-lint buf-gen-go buf-gen-python
 
+.PHONY: buf-lint
 buf-lint:
-	buf lint proto
+	buf lint
+	buf format --diff --exit-code
+
+.PHONY: buf-format
+buf-format:
+	buf format --diff -w
 
 buf-gen-go:
 	buf generate --template buf.gen-go.yaml proto
