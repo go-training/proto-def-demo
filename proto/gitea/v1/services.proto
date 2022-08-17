@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package gitea.v1;
 
-option go_package = "github.com/go-training/proto-connect-demo/gen/go/gitea/v1;gitea";
-
 import "gitea/v1/messages.proto";
+
+option go_package = "github.com/go-training/proto-connect-demo/gen/go/gitea/v1;gitea";
 
 service GiteaService {
   rpc Gitea(GiteaRequest) returns (GiteaResponse) {}
