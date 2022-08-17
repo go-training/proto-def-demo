@@ -48,10 +48,10 @@ buf-format:
 	buf format --diff -w
 
 buf-gen-go:
-	buf generate --template buf.gen-go.yaml proto
+	buf generate --template buf.gen-go.yaml
 
 buf-gen-python:
-	buf generate --template buf.gen-python.yaml proto
+	buf generate --template buf.gen-python.yaml
 
 clean:
 	rm -rf gen
