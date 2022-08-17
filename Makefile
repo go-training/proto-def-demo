@@ -61,6 +61,8 @@ push-to-go-repo:
 	cp -r gen/* $(PROTO_GO_TARGET_REPO)/
 	cd $(PROTO_GO_TARGET_REPO) && $(GO) mod init github.com/go-training/proto-go-demo || true
 	cd $(PROTO_GO_TARGET_REPO) && $(GO) mod tidy
+	git config --global user.email "appleboy.tw@gmail.com"
+	git config --global user.name "Bo-Yi Wu"
 	(cd $(PROTO_GO_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
 
 clean:
