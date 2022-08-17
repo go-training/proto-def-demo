@@ -52,7 +52,7 @@ jobs:
       - name: Checkout proto-go repo
         uses: actions/checkout@master
         with:
-          repository: github.com/go-training/proto-go-demo
+          repository: go-training/proto-go-demo
           token: ${{ secrets.CI_BOT_TOKEN }}
           path: deploy/proto-go
 

@@ -4,7 +4,6 @@ GRPCURL_VERSION=v1.8.7
 PROTOC_GEN_GO=v1.28
 PROTOC_GEN_GO_GRPC=v1.2
 PROTOC_GEN_CONNECT_GO=v0.3.0
-PROTO_GO_REPO ?= https://github.com/go-training/proto-go-demo.git
 PROTO_GO_TARGET_REPO ?= deploy/proto-go
 
 .PHONY: build
