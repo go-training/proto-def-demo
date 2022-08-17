@@ -48,3 +48,7 @@ jobs:
       - name: Build Server and Client
         run: |
           make build
+
+      - name: Push Code to proto-go-demo
+        run: |
+          make push-to-go-repo

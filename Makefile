@@ -4,6 +4,8 @@ GRPCURL_VERSION=v1.8.7
 PROTOC_GEN_GO=v1.28
 PROTOC_GEN_GO_GRPC=v1.2
 PROTOC_GEN_CONNECT_GO=v0.3.0
+PROTO_GO_REPO ?= https://github.com/go-training/proto-go-demo.git
+PROTO_GO_TARGET_REPO ?= deploy/proto-go
 
 .PHONY: build
 build: generator server client
@@ -52,6 +54,14 @@ buf-gen-go:
 
 buf-gen-python:
 	buf generate --template buf.gen-python.yaml
+
+push-to-go-repo:
+	test -d deploy || mkdir -p deploy
+	test -d $(PROTO_GO_TARGET_REPO) || git clone $(PROTO_GO_REPO) $(PROTO_GO_TARGET_REPO)
+	cp -r gen/* $(PROTO_GO_TARGET_REPO)/
+	cd $(PROTO_GO_TARGET_REPO) && $(GO) mod init github.com/go-training/proto-go-demo || true
+	cd $(PROTO_GO_TARGET_REPO) && $(GO) mod tidy
+	(cd $(PROTO_GO_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
 
 clean:
 	rm -rf gen
