@@ -7,7 +7,7 @@ PROTOC_GEN_CONNECT_GO=v0.3.0
 PROTO_GO_TARGET_REPO ?= deploy/proto-go
 
 .PHONY: build
-build: generator server client
+build: generator
 
 .PHONY: server
 server: gin chi
