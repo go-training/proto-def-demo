@@ -49,6 +49,13 @@ jobs:
         run: |
           make build
 
+      - name: Checkout proto-go repo
+        uses: actions/checkout@master
+        with:
+          repository: github.com/go-training/proto-go-demo
+          token: ${{ secrets.CI_BOT_TOKEN }}
+          path: deploy/proto-go
+
       - name: Push Code to proto-go-demo
         run: |
           make push-to-go-repo
