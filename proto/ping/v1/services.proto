@@ -4,8 +4,6 @@ package ping.v1;
 
 import "ping/v1/messages.proto";
 
-option go_package = "github.com/go-training/proto-connect-demo/gen/go/ping/v1;ping";
-
 service PingService {
   rpc Ping(PingRequest) returns (PingResponse);
 }

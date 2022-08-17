@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package ping.v1;
 
-option go_package = "github.com/go-training/proto-connect-demo/gen/go/ping/v1;ping";
-
 message PingRequest {
   string data = 1;
 }
