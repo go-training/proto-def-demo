@@ -45,7 +45,7 @@ jobs:
         run: |
           make install
 
-      - name: Build Server and Client
+      - name: Generator Code
         run: |
           make build
 
