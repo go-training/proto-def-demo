@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/go-training/proto-connect-demo
+name: buf.build/go-training/proto-def-demo
 breaking:
   use:
     - FILE
