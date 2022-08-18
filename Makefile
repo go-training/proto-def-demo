@@ -5,6 +5,7 @@ PROTOC_GEN_GO=v1.28
 PROTOC_GEN_GO_GRPC=v1.2
 PROTOC_GEN_CONNECT_GO=v0.3.0
 PROTO_GO_TARGET_REPO ?= deploy/proto-go
+PROTO_PYTHON_TARGET_REPO ?= deploy/proto-python
 
 .PHONY: build
 build: generator
@@ -42,6 +43,12 @@ push-to-go-repo:
 	git config --global user.email "appleboy.tw@gmail.com"
 	git config --global user.name "Bo-Yi Wu"
 	(cd $(PROTO_GO_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
+
+push-to-python-repo:
+	cp -r gen/python/* $(PROTO_PYTHON_TARGET_REPO)/
+	git config --global user.email "appleboy.tw@gmail.com"
+	git config --global user.name "Bo-Yi Wu"
+	(cd $(PROTO_PYTHON_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
 
 clean:
 	rm -rf gen
