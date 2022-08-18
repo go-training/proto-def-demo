@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        go: [1.18]
+        go: [1.19]
         include:
           - os: ubuntu-latest
             go-build: ~/.cache/go-build
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        go: [1.18]
+        go: [1.19]
         include:
           - os: ubuntu-latest
             go-build: ~/.cache/go-build
@@ -100,7 +100,7 @@ jobs:
         run: |
           make build
 
-      - name: Checkout proto-go repo
+      - name: Checkout proto-python repo
         uses: actions/checkout@master
         with:
           repository: go-training/proto-python-demo
