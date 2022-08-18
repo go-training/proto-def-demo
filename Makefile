@@ -9,21 +9,6 @@ PROTO_GO_TARGET_REPO ?= deploy/proto-go
 .PHONY: build
 build: generator
 
-.PHONY: server
-server: gin chi
-
-.PHONY: chi
-chi:
-	$(GO) build -o bin/$@-server cmd/server/$@/*.go
-
-.PHONY: gin
-gin:
-	$(GO) build -o bin/$@-server cmd/server/$@/*.go
-
-.PHONY: client
-client:
-	$(GO) build -o bin/$@ cmd/$@/main.go
-
 .PHONY: install
 install:
 	$(GO) install github.com/bufbuild/buf/cmd/buf@$(BUF_VERSION)
@@ -31,10 +16,6 @@ install:
 	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@$(PROTOC_GEN_GO)
 	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc@$(PROTOC_GEN_GO_GRPC)
 	$(GO) install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@$(PROTOC_GEN_CONNECT_GO)
-
-.PHONY: upgrade
-upgrade: ## Upgrade dependencies
-	$(GO) get -u -t ./... && go mod tidy -v
 
 .PHONY: generator
 generator: buf-lint buf-gen-go buf-gen-python
