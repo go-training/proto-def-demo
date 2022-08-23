@@ -9,3 +9,13 @@ message GiteaRequest {
 message GiteaResponse {
   string giteaing = 1;
 }
+
+// IntroduceRequest describes a request for details from the ELIZA program.
+message IntroduceRequest {
+  string name = 1;
+}
+
+// IntroduceResponse describes the sentence responded by the ELIZA program.
+message IntroduceResponse {
+  string sentence = 1;
+}

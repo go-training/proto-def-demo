@@ -6,4 +6,7 @@ import "gitea/v1/messages.proto";
 
 service GiteaService {
   rpc Gitea(GiteaRequest) returns (GiteaResponse) {}
+  // Introduce is a server-streaming request demo.  This method allows for a single request that will return a series
+  // of responses
+  rpc Introduce(IntroduceRequest) returns (stream IntroduceResponse) {}
 }
