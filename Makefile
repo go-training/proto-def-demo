@@ -7,6 +7,7 @@ PROTOC_GEN_CONNECT_GO=v0.4.0
 PROTOC_GEN_OPENAPIV2=v2.11.3
 PROTO_GO_TARGET_REPO ?= deploy/proto-go
 PROTO_PYTHON_TARGET_REPO ?= deploy/proto-python
+PROTO_OPENAPIV2_TARGET_REPO ?= deploy/proto-openapiv2
 
 .PHONY: build
 build: generator
@@ -21,7 +22,7 @@ install:
 	$(GO) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@$(PROTOC_GEN_OPENAPIV2)
 
 .PHONY: generator
-generator: buf-lint buf-gen-go buf-gen-python
+generator: buf-lint buf-gen-go buf-gen-python buf-gen-openapiv2
 
 .PHONY: buf-lint
 buf-lint:
@@ -38,6 +39,9 @@ buf-gen-go: clean_go
 buf-gen-python: clean_python
 	buf generate --template buf.gen-python.yaml
 
+buf-gen-openapiv2: clean_openapiv2
+	buf generate --template buf.gen-openapiv2.yaml
+
 push-to-go-repo:
 	cp -r gen/go/* $(PROTO_GO_TARGET_REPO)/
 	cd $(PROTO_GO_TARGET_REPO) && $(GO) mod init github.com/go-training/proto-go-demo || true
@@ -52,11 +56,20 @@ push-to-python-repo:
 	git config --global user.name "Bo-Yi Wu"
 	(cd $(PROTO_PYTHON_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
 
+push-to-openapiv2-repo:
+	cp -r gen/openapiv2/* $(PROTO_OPENAPIV2_TARGET_REPO)/
+	git config --global user.email "appleboy.tw@gmail.com"
+	git config --global user.name "Bo-Yi Wu"
+	(cd $(PROTO_OPENAPIV2_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
+
 clean_go:
 	rm -rf gen/go
 
 clean_python:
 	rm -rf gen/python
+
+clean_openapiv2:
+	rm -rf gen/openapiv2
 
 clean:
 	rm -rf gen
