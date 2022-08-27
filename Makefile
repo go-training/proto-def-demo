@@ -4,6 +4,7 @@ GRPCURL_VERSION=v1.8.7
 PROTOC_GEN_GO=v1.28
 PROTOC_GEN_GO_GRPC=v1.2
 PROTOC_GEN_CONNECT_GO=v0.4.0
+PROTOC_GEN_OPENAPIV2=v2.11.3
 PROTO_GO_TARGET_REPO ?= deploy/proto-go
 PROTO_PYTHON_TARGET_REPO ?= deploy/proto-python
 
@@ -17,6 +18,7 @@ install:
 	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@$(PROTOC_GEN_GO)
 	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc@$(PROTOC_GEN_GO_GRPC)
 	$(GO) install github.com/bufbuild/connect-go/cmd/protoc-gen-connect-go@$(PROTOC_GEN_CONNECT_GO)
+	$(GO) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@$(PROTOC_GEN_OPENAPIV2)
 
 .PHONY: generator
 generator: buf-lint buf-gen-go buf-gen-python
