@@ -30,10 +30,10 @@ buf-lint:
 buf-format:
 	buf format --diff -w
 
-buf-gen-go:
+buf-gen-go: clean_go
 	buf generate --template buf.gen-go.yaml
 
-buf-gen-python:
+buf-gen-python: clean_python
 	buf generate --template buf.gen-python.yaml
 
 push-to-go-repo:
@@ -49,6 +49,12 @@ push-to-python-repo:
 	git config --global user.email "appleboy.tw@gmail.com"
 	git config --global user.name "Bo-Yi Wu"
 	(cd $(PROTO_PYTHON_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
+
+clean_go:
+	rm -rf gen/go
+
+clean_python:
+	rm -rf gen/python
 
 clean:
 	rm -rf gen
