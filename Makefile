@@ -61,7 +61,7 @@ push-to-python-repo:
 	(cd $(PROTO_PYTHON_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
 
 push-to-ruby-repo:
-	cp -r gen/python/* $(PROTO_RUBY_TARGET_REPO)/
+	cp -r gen/ruby/* $(PROTO_RUBY_TARGET_REPO)/
 	git config --global user.email "appleboy.tw@gmail.com"
 	git config --global user.name "Bo-Yi Wu"
 	(cd $(PROTO_RUBY_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
