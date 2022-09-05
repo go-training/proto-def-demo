@@ -7,6 +7,7 @@ PROTOC_GEN_CONNECT_GO=v0.4.0
 PROTOC_GEN_OPENAPIV2=v2.11.3
 PROTO_GO_TARGET_REPO ?= deploy/proto-go
 PROTO_PYTHON_TARGET_REPO ?= deploy/proto-python
+PROTO_RUBY_TARGET_REPO ?= deploy/proto-ruby
 PROTO_OPENAPIV2_TARGET_REPO ?= deploy/proto-openapiv2
 
 .PHONY: build
@@ -58,6 +59,12 @@ push-to-python-repo:
 	git config --global user.email "appleboy.tw@gmail.com"
 	git config --global user.name "Bo-Yi Wu"
 	(cd $(PROTO_PYTHON_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
+
+push-to-ruby-repo:
+	cp -r gen/python/* $(PROTO_RUBY_TARGET_REPO)/
+	git config --global user.email "appleboy.tw@gmail.com"
+	git config --global user.name "Bo-Yi Wu"
+	(cd $(PROTO_RUBY_TARGET_REPO) && git add --all && git commit -m "[auto-commit] Generate codes" && git push -f -u origin main) || echo "not pushed"
 
 push-to-openapiv2-repo:
 	cp -r gen/openapiv2/* $(PROTO_OPENAPIV2_TARGET_REPO)/

@@ -111,6 +111,57 @@ jobs:
         run: |
           make push-to-python-repo
 
+  codegen-ruby:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        go: [1.19]
+        include:
+          - os: ubuntu-latest
+            go-build: ~/.cache/go-build
+    name: ${{ matrix.os }} @ Go ${{ matrix.go }}
+    runs-on: ${{ matrix.os }}
+    env:
+      GO111MODULE: on
+      GOPROXY: https://proxy.golang.org
+    steps:
+      - name: Set up Go ${{ matrix.go }}
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ${{ matrix.go-build }}
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: Install dependency
+        run: |
+          make install
+
+      - name: Generator Code
+        run: |
+          make build
+
+      - name: Checkout proto-python repo
+        uses: actions/checkout@master
+        with:
+          repository: go-training/proto-ruby-demo
+          token: ${{ secrets.CI_BOT_TOKEN }}
+          path: deploy/proto-ruby
+
+      - name: Push Code to proto-ruby-demo
+        run: |
+          make push-to-ruby-repo
+
   codegen-openapiv2:
     strategy:
       matrix:
