@@ -1,0 +1,7 @@
+# Documentation: https://docs.buf.build/configuration/v1/buf-gen-yaml
+version: v1
+plugins:
+  - remote: buf.build/protocolbuffers/plugins/ruby:v3.19.1-1
+    out: gen/ruby
+  - remote: buf.build/grpc/plugins/ruby:v1.41.1-1
+    out: gen/ruby

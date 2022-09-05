@@ -22,7 +22,7 @@ install:
 	$(GO) install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@$(PROTOC_GEN_OPENAPIV2)
 
 .PHONY: generator
-generator: buf-lint buf-gen-go buf-gen-python buf-gen-openapiv2
+generator: buf-lint buf-gen-go buf-gen-python buf-gen-openapiv2 buf-gen-ruby
 
 .PHONY: buf-lint
 buf-lint:
@@ -35,6 +35,9 @@ buf-format:
 
 buf-gen-go: clean_go
 	buf generate --template buf.gen-go.yaml
+
+buf-gen-ruby: clean_ruby
+	buf generate --template buf.gen-ruby.yaml
 
 buf-gen-python: clean_python
 	buf generate --template buf.gen-python.yaml
@@ -70,6 +73,9 @@ clean_python:
 
 clean_openapiv2:
 	rm -rf gen/openapiv2
+
+clean_ruby:
+	rm -rf gen/ruby
 
 clean:
 	rm -rf gen
